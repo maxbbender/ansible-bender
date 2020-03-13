@@ -3,4 +3,4 @@
   hosts: localhost
   tasks:
   - include_role:
-      name: ansible_role_bender
+      name: maxbbender.ansible_role_bender
