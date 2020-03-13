@@ -1,0 +1,6 @@
+---
+- name: Initiate bender User
+  hosts: localhost
+  tasks:
+  - include_role:
+      name: ansible_role_bender
