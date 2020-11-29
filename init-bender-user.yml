@@ -1,6 +1,34 @@
 ---
 - name: Initiate bender User
-  hosts: localhost
+  hosts: webserver
+  become: yes
   tasks:
   - include_role:
-      name: maxbbender.ansible_role_bender
+      name: gantsign.oh-my-zsh
+    vars:
+      users:
+        - username: bender
+          theme: robbyrussell
+          oh_my_zsh_plugins:
+            - git
+            - history
+  - name: bender | download zsh-autosuggestions
+    git:
+      repo: https://github.com/zsh-users/zsh-autosuggestions.git
+      dest: "/home/bender/.oh-my-zsh/plugins/zsh-autosuggestions"
+  - name: bender | download zsh-syntaxhighlighting
+    git:
+      repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+      dest: "/home/bender/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+  - include_role:
+      name: gantsign.oh-my-zsh
+    vars:
+      users:
+        - username: bender
+          oh_my_zsh:
+            theme: robbyrussell
+            plugins:
+              - git
+              - history
+              - zsh-autosuggestions
+              - zsh-syntax-highlighting
